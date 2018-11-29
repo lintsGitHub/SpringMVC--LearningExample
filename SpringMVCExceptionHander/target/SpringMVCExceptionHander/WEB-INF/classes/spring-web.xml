@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:contxt="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--启用注解扫描-->
+    <contxt:component-scan base-package="priv.lint.Controller"/>
+
+    <!--启用 mvc 的常用注解-->
+    <mvc:annotation-driven/>
+
+    <!--将所有的静态资源交还 Servlet 处理-->
+    <mvc:default-servlet-handler/>
+
+    <!--注册一个SimpleMappingExceptionResolver 异常处理器-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+
+        <!--设置默认错误视图-->
+        <property name="defaultErrorView" value="error"/>
+
+        <!--定义异常处理页面获取异常信息的变量名，如果不添加这个子节点，默认变量名为exception-->
+        <!--在前台使用时直接可以使用el表达式来使用 如：${ error.message }-->
+        <property name="exceptionAttribute" value="error"/>
+
+        <property name="exceptionMappings">
+            <props>
+                <prop key="IOException">IOEx</prop>
+                <prop key="SQLException">SQLEx</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <!--配置返回页面-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+</beans>
