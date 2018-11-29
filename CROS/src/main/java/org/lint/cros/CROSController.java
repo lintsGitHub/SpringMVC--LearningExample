@@ -12,7 +12,7 @@ public class CROSController{
     @CrossOrigin
     @ResponseBody
     @RequestMapping("/hello")
-    public String seyHello(){
+    public String seyHello(Exception e){
         return "成功返回数据";
     }
 
