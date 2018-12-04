@@ -9,6 +9,15 @@ public class PersonMsg {
     private Date birthday;
     private String gender;
 
+    @Override
+    public String toString() {
+        return "PersonMsg{" +
+                "province='" + province + '\'' +
+                ", birthday=" + birthday +
+                ", gender='" + gender + '\'' +
+                '}';
+    }
+
     public PersonMsg(String province, Date birthday, String gender) {
         this.province = province;
         this.birthday = birthday;

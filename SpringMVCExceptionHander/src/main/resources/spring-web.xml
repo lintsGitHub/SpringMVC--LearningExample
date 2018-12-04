@@ -2,26 +2,36 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:contxt="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--启用注解扫描-->
     <contxt:component-scan base-package="priv.lint.Controller"/>
 
     <!--启用 mvc 的常用注解-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven  conversion-service="factoryBean"/>
 
     <!--将所有的静态资源交还 Servlet 处理-->
     <mvc:default-servlet-handler/>
 
-    <!--注册一个SimpleMappingExceptionResolver 异常处理器-->
+
+    <!--配置类型转换规则-->
+    <bean id="factoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set >
+                <bean class="priv.lint.Exceptions.FromIDFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+<!--    &lt;!&ndash;注册一个SimpleMappingExceptionResolver 异常处理器&ndash;&gt;
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 
-        <!--设置默认错误视图-->
+        &lt;!&ndash;设置默认错误视图&ndash;&gt;
         <property name="defaultErrorView" value="error"/>
 
-        <!--定义异常处理页面获取异常信息的变量名，如果不添加这个子节点，默认变量名为exception-->
-        <!--在前台使用时直接可以使用el表达式来使用 如：${ error.message }-->
+        &lt;!&ndash;定义异常处理页面获取异常信息的变量名，如果不添加这个子节点，默认变量名为exception&ndash;&gt;
+        &lt;!&ndash;在前台使用时直接可以使用el表达式来使用 如：${ error.message }&ndash;&gt;
         <property name="exceptionAttribute" value="error"/>
 
         <property name="exceptionMappings">
@@ -30,7 +40,7 @@
                 <prop key="SQLException">SQLEx</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
 
 
     <!--配置返回页面-->
