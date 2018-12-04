@@ -1,0 +1,4 @@
+第一个SpringMVC项目：
+了解SpringMVC的一些配置
+对SpringMVC的一个初涉
+也可以作为一个空项目进行快速开发等等。。。
