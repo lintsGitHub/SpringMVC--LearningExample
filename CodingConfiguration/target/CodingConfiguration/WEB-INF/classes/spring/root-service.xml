@@ -7,5 +7,5 @@
     <!--启用注解-->
     <context:component-scan base-package="priv.lint">
     </context:component-scan>
-
+    <bean class="priv.lint.entity.Student"/>
 </beans>

@@ -10,11 +10,30 @@
 
     <!--启用 mvc 的常用注解-->
     <mvc:annotation-driven>
-        <!--<mvc:message-converters register-defaults="true">-->
-            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
-                <!--<constructor-arg value="UTF-8" />-->
-            <!--</bean>-->
-        <!--</mvc:message-converters>-->
+        <mvc:message-converters register-defaults="true">
+            <!--设置全局的字符编码-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8" />
+            </bean>
+            <!--
+            对json的一些设置
+            对此 ， 我们要尝试通过一些写这个框架的逻辑来尝试读写代码
+            这样我们就更了解这个框架了
+            对待以后要学的一些新型框架我们就可以快速上手
+            -->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                        <property name="failOnEmptyBeans" value="false"/>
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat" >
+                                 <constructor-arg value="yyyy--MM--dd"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
     </mvc:annotation-driven>
 
 
